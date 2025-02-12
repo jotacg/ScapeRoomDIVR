@@ -58,7 +58,7 @@ public class CustomInputAction : MonoBehaviour
             float distanceFromPoint = Vector3.Distance(_player.position, _grapplePoint);
 
             // The distance grapple will try  to keep from grapple point
-            _joint.maxDistance = distanceFromPoint * 0.8f;
+            _joint.maxDistance = distanceFromPoint * 0.4f;
             _joint.minDistance = distanceFromPoint * 0.25f;
 
             // Probar diferentes valores
