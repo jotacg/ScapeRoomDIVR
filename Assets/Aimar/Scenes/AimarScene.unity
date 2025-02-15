@@ -279,6 +279,7 @@ MonoBehaviour:
   xRGrab: {fileID: 865126303}
   xrOrigin: {fileID: 645411051}
   orb: {fileID: 399600390}
+  baculo: {fileID: 865126301}
 --- !u!135 &389440515
 SphereCollider:
   m_ObjectHideFlags: 0
