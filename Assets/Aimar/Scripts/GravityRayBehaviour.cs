@@ -5,46 +5,74 @@ using UnityEngine;
 public class GravityRayBehaviour : MonoBehaviour
 {
     GameObject objective = null;
+    Rigidbody objRB = null;
     bool objInPlace = false;
     [SerializeField] Transform rayPoint;
     [SerializeField] float launchForce;
+    [SerializeField] float rayForce;
+    [SerializeField] LineRenderer line;
+    bool pressing = false;
     public void OnActivateEnter()
     {
-        RaycastHit hit;
-        // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(rayPoint.position, transform.TransformDirection(rayPoint.up), out hit, Mathf.Infinity))
-        {
-            if (hit.transform.CompareTag("Gravity"))
-            {
-
-            }
-     
-        }
+        pressing = true;
     }
 
     public void OnActivateExit()
     {
-        percentagePlace = 0;
+      
         objInPlace = false;
-        objective.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        objRB.constraints = RigidbodyConstraints.None;
         if (objInPlace)
         {
-            
-            objective.GetComponent<Rigidbody>().AddForce(rayPoint.up * launchForce);
+
+            objRB.AddForce(rayPoint.up * launchForce);
         }
         objective = null;
+        objRB = null;
+        pressing = false;
     }
 
-    float percentagePlace = 0;
-    void Update()
+    private void Update()
     {
+        
+        line.GetPosition(0).Set(transform.position.x, transform.position.y, transform.position.z);
+        if (objective != null && !objInPlace)
+        {
+
+            line.GetPosition(1).Set(objective.transform.position.x, objective.transform.position.y, objective.transform.position.z);
+        }
+        else
+        {
+            line.GetPosition(1).Set(transform.position.x, transform.position.y, transform.position.z);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (pressing)
+        {
+            RaycastHit hit;
+           
+            if (Physics.Raycast(rayPoint.position, rayPoint.right, out hit, Mathf.Infinity))
+            {
+    
+                if (hit.transform.CompareTag("Gravity"))
+                {
+                    objective = hit.transform.gameObject;
+                    objRB = objective.GetComponent<Rigidbody>();
+                }
+
+            }
+            pressing = false;
+        }
         if(objective != null && !objInPlace)
         {
-            percentagePlace += Time.deltaTime;
-            objective.transform.position = Vector3.Lerp(transform.position, rayPoint.position, percentagePlace);
+
+            line.GetPosition(1).Set(objective.transform.position.x, objective.transform.position.y, objective.transform.position.z);
+            objRB.AddForce((objective.transform.position - rayPoint.position)*rayForce);
             if (Vector3.Distance(objective.transform.position, rayPoint.position) < 0.1f)
             {
-                objective.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                objRB.constraints = RigidbodyConstraints.FreezePosition;
                 objInPlace = true;
             }
         }

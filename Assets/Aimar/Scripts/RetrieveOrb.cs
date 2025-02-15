@@ -11,6 +11,7 @@ public class RetrieveOrb : MonoBehaviour
     public void OnActivatedEnter()
     {
         orb.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        orb.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         orb.transform.position = socketPosition.position;
     }
 }

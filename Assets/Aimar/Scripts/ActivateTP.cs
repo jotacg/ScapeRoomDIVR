@@ -5,7 +5,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ActivateTP : MonoBehaviour
 {
-
+    [SerializeField]
+    Transform bottomPlace;
     [SerializeField]
     XRBaseControllerInteractor rightHand;
     [SerializeField]
@@ -14,6 +15,8 @@ public class ActivateTP : MonoBehaviour
     Transform xrOrigin;
     [SerializeField]
     Transform orb;
+    [SerializeField]
+    Transform baculo;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Suelo"))
@@ -21,8 +24,13 @@ public class ActivateTP : MonoBehaviour
             if(xRGrab.isSelected && rightHand.isSelectActive) //Esta agarrando el baculo con la mano derecha
             {
                 xrOrigin.position = orb.position;
-                orb.GetComponent<RetrieveOrb>().OnActivatedEnter();
+                baculo.GetComponent<RetrieveOrb>().OnActivatedEnter();
             }
         }
+    }
+
+    private void Update()
+    {
+        transform.position = bottomPlace.transform.position;
     }
 }

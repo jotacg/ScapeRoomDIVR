@@ -21,9 +21,16 @@ public class ThrowOrb : MonoBehaviour
         prevDir = transform.position;
     }
 
-    
+   
     public void OnSelectExit()
     {
+        rb.constraints = RigidbodyConstraints.None;
         rb.AddForce(dir * launchForce);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        rb.constraints = RigidbodyConstraints.FreezePosition;
+    }
+
 }
