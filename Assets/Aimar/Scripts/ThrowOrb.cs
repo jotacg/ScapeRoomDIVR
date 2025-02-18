@@ -10,8 +10,8 @@ public class ThrowOrb : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
-   
 
+    public bool grounded = false;
    
     public void OnSelectExit()
     {
@@ -21,7 +21,11 @@ public class ThrowOrb : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        rb.constraints = RigidbodyConstraints.FreezePosition;
+        if (collision.gameObject.CompareTag("Suelo"))
+        {
+            rb.constraints = RigidbodyConstraints.FreezePosition;
+            grounded = true;
+        }
     }
 
 }

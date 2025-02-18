@@ -20,30 +20,30 @@ public class GravityRayBehaviour : MonoBehaviour
     public void OnActivateExit()
     {
       
-        objInPlace = false;
+        
         objRB.constraints = RigidbodyConstraints.None;
         if (objInPlace)
         {
 
-            objRB.AddForce(rayPoint.up * launchForce);
+            objRB.AddForce(rayPoint.forward * launchForce, ForceMode.Impulse);
         }
+        objInPlace = false;
         objective = null;
         objRB = null;
         pressing = false;
     }
 
-    private void Update()
+    void Update()
     {
+        line.SetPosition(0, rayPoint.position);
         
-        line.GetPosition(0).Set(transform.position.x, transform.position.y, transform.position.z);
         if (objective != null && !objInPlace)
         {
-
-            line.GetPosition(1).Set(objective.transform.position.x, objective.transform.position.y, objective.transform.position.z);
+            line.SetPosition(1, objective.transform.position);
         }
         else
         {
-            line.GetPosition(1).Set(transform.position.x, transform.position.y, transform.position.z);
+            line.SetPosition(1, rayPoint.position);
         }
     }
 
@@ -53,24 +53,26 @@ public class GravityRayBehaviour : MonoBehaviour
         {
             RaycastHit hit;
            
-            if (Physics.Raycast(rayPoint.position, rayPoint.right, out hit, Mathf.Infinity))
+            if (Physics.Raycast(rayPoint.position, rayPoint.forward, out hit, Mathf.Infinity))
             {
-    
+
                 if (hit.transform.CompareTag("Gravity"))
                 {
                     objective = hit.transform.gameObject;
                     objRB = objective.GetComponent<Rigidbody>();
+                    
+                    pressing = false;
                 }
 
             }
-            pressing = false;
+            
         }
         if(objective != null && !objInPlace)
         {
-
+            
             line.GetPosition(1).Set(objective.transform.position.x, objective.transform.position.y, objective.transform.position.z);
-            objRB.AddForce((objective.transform.position - rayPoint.position)*rayForce);
-            if (Vector3.Distance(objective.transform.position, rayPoint.position) < 0.1f)
+            objRB.AddForce(-(objective.transform.position - rayPoint.position)*rayForce);
+            if (Vector3.Distance(objective.transform.position, rayPoint.position) < .5f)
             {
                 objRB.constraints = RigidbodyConstraints.FreezePosition;
                 objInPlace = true;
