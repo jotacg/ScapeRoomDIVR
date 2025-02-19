@@ -12,6 +12,8 @@ public class GravityRayBehaviour : MonoBehaviour
     [SerializeField] float rayForce;
     [SerializeField] LineRenderer line;
     bool pressing = false;
+
+    Vector3 lineHitPos;
     public void OnActivateEnter()
     {
         pressing = true;
@@ -37,9 +39,9 @@ public class GravityRayBehaviour : MonoBehaviour
     {
         line.SetPosition(0, rayPoint.position);
         
-        if (objective != null && !objInPlace)
+        if (pressing)
         {
-            line.SetPosition(1, objective.transform.position);
+            line.SetPosition(1, lineHitPos);
         }
         else
         {
@@ -55,7 +57,7 @@ public class GravityRayBehaviour : MonoBehaviour
            
             if (Physics.Raycast(rayPoint.position, rayPoint.forward, out hit, Mathf.Infinity))
             {
-
+                lineHitPos = hit.point;
                 if (hit.transform.CompareTag("Gravity"))
                 {
                     objective = hit.transform.gameObject;

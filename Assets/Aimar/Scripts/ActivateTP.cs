@@ -5,18 +5,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ActivateTP : MonoBehaviour
 {
-    [SerializeField]
-    Transform bottomPlace;
-    [SerializeField]
-    XRBaseControllerInteractor rightHand;
-    [SerializeField]
-    XRGrabInteractable xRGrab;
-    [SerializeField]
-    Transform xrOrigin;
-    [SerializeField]
-    ThrowOrb orb;
-    [SerializeField]
-    Transform baculo;
+    [SerializeField] Transform bottomPlace;
+    [SerializeField] XRBaseControllerInteractor rightHand;
+    [SerializeField] XRGrabInteractable xRGrab;
+    [SerializeField] Transform xrOrigin;
+    [SerializeField] ThrowOrb orb;
+    [SerializeField] Transform baculo;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Suelo"))
