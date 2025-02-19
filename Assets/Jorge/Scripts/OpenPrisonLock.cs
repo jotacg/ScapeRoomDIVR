@@ -14,16 +14,10 @@ public class OpenPrisonLock : MonoBehaviour
         _animator = _door.GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void OnTriggerEnter(Collider other) {
         if(!_doorOpen && other.transform.gameObject.layer == 11)
         {
-            _animator.SetTrigger("TrOpen");
+            _animator.SetTrigger("TrOpenPrison");
             _doorOpen = true;
         }
     }

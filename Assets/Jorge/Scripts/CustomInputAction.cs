@@ -35,13 +35,13 @@ public class CustomInputAction : MonoBehaviour
 
     private void ButtonWasPressed(InputAction.CallbackContext context)
     {
-        Debug.Log("Presionado!!");
+        //Debug.Log("Presionado!!");
         StartGrapple();
     }
 
     private void ButtonWasReleased(InputAction.CallbackContext context)
     {
-        Debug.Log("Soltado!!");
+        //Debug.Log("Soltado!!");
         StopGrapple();
     }
 
