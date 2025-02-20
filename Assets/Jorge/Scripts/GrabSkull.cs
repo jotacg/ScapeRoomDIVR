@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class GrabSkull : MonoBehaviour
 {
@@ -16,8 +17,10 @@ public class GrabSkull : MonoBehaviour
         Destroy(this.gameObject);
             _hookHand.SetActive(false);
             _skullHand.SetActive(true);
-            _teleportInteractor.SetActive(true);
+            //_teleportInteractor.SetActive(true);
+            _teleportInteractor.GetComponent<XRRayInteractor>().enabled = true;
             _rayInteractor.SetActive(true);
+            _rayInteractor.GetComponent<XRRayInteractor>().enabled = true;
             _teleportLocomotion.SetActive(true);
             _pokeInteractor.GetComponent<CustomInputAction>().enabled = false;
     }
