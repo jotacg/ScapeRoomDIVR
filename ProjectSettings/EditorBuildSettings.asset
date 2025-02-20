@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Aimar/Scenes/AimarScene.unity
     guid: 0c8023c3ee5c46f43b5d6f3b5e4d001b
-  - enabled: 0
+  - enabled: 1
     path: Assets/German/Scenes/GermanScene.unity
     guid: 7c6ffbec2f9234e928a6002bcfb4b29a
   m_configObjects:
