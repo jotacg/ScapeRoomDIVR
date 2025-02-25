@@ -4,95 +4,88 @@ using System;
 
 public class CauldronPuzzleManager : MonoBehaviour
 {
-    // Puzzle items in the exact required sequence (0-based).
-    // e.g., puzzleOrder.Count = 3 for: [0=Red, 1=Green, 2=Book].
-    [Tooltip("List puzzle items in the correct sequence.")]
+    [Tooltip("List puzzle items in the correct sequence (0-based).")]
     public List<PuzzleItem> puzzleOrder;
 
-    // Which item we expect next
     private int currentSequenceIndex = 0;
 
-    // Event: Fired when all items are thrown in the correct order
     public static event Action OnCauldronPotionComplete;
 
     [Header("Audio")]
-    [Tooltip("Assign a WAV or audio file for the correct item 'ingestion' sound.")]
-    public AudioClip ingestionAudio;    // played when correct item is thrown
-    [Tooltip("Assign a WAV or audio file for the wrong/spitted item sound.")]
-    public AudioClip spittedAudio;      // played when item is spat out
+    [Tooltip("Played when correct item is thrown.")]
+    public AudioClip ingestionAudio;
+    [Tooltip("Played when item is spat out (wrong order / non-puzzle). Disabled when puzzleComplete=true.")]
+    public AudioClip spittedAudio;
 
     private AudioSource audioSource;
 
     [Header("Spit-Out Settings (Wrong Order)")]
-    [Tooltip("Force applied to wrong item to fling it out of the cauldron.")]
+    [Tooltip("Force applied to fling item out of the cauldron.")]
     public float spitForce = 5f;
-
-    [Tooltip("Torque (rotational force) applied to wrong item.")]
+    [Tooltip("Torque (rotational force) for the spit out.")]
     public float spitTorque = 3f;
+
+    // Whether the puzzle is finished
+    private bool puzzleComplete = false;
 
     private void Start()
     {
-        // Debug how many items are in puzzleOrder
         if (puzzleOrder == null)
         {
-            Debug.LogError("No puzzleOrder assigned! The puzzle won't work properly.");
+            Debug.LogError("No puzzleOrder assigned! Puzzle won't work correctly.");
         }
         else
         {
-            Debug.Log($"[CauldronPuzzleManager] puzzleOrder has {puzzleOrder.Count} item(s).");
+            Debug.Log($"[CauldronPuzzleManager] puzzleOrder has {puzzleOrder.Count} items.");
         }
 
         // Ensure there's an AudioSource on this GameObject
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
-            // If there's no AudioSource, create one
             audioSource = gameObject.AddComponent<AudioSource>();
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the thrown object has a PuzzleItem script
+        // Check if we have a PuzzleItem
         PuzzleItem item = other.GetComponent<PuzzleItem>();
+        Rigidbody rb = other.GetComponent<Rigidbody>();
+
         if (item == null)
         {
-            // It's an alien / non-puzzle object => spit it out anyway
-            Debug.Log($"[CauldronPuzzleManager] Spitting out NON-puzzle item: {other.name}");
-            SpitOutItem(other.GetComponent<Rigidbody>());
+            // Non-puzzle object => spit it out (force only, no ingestion)
+            Debug.Log($"Spitting out NON-puzzle item: {other.name}");
+            SpitOutItem(rb);
             return;
         }
 
-        // If it's a puzzle item, check sequence
-        if (item.sequenceIndex == currentSequenceIndex)
+        // If it's a puzzle item, check if puzzle is done or not
+        if (!puzzleComplete && item.sequenceIndex == currentSequenceIndex)
         {
-            // ✅ Correct item
+            // Correct item
             Debug.Log($"✅ Correct item in sequence! (Index {currentSequenceIndex})");
-
-            // Play ingestion sound if assigned
             if (ingestionAudio != null)
             {
                 audioSource.PlayOneShot(ingestionAudio);
             }
-
-            // Destroy the puzzle item (it disappears in the cauldron)
             Destroy(other.gameObject);
-
-            // Move to the next required item
             currentSequenceIndex++;
 
-            // If we've hit the end of the puzzle order, puzzle is complete
+            // Check if puzzle is now complete
             if (puzzleOrder != null && currentSequenceIndex >= puzzleOrder.Count)
             {
+                puzzleComplete = true;
                 Debug.Log("✨ All items in correct order! Puzzle complete.");
-                OnCauldronPotionComplete?.Invoke(); // Fire event
+                OnCauldronPotionComplete?.Invoke();
             }
         }
         else
         {
-            // ❌ Wrong item order
-            Debug.Log($"❌ Wrong item order! Spitting the item out... (Expected sequenceIndex={currentSequenceIndex}, got {item.sequenceIndex})");
-            SpitOutItem(other.GetComponent<Rigidbody>());
+            // Wrong item OR puzzleComplete. Spit it out.
+            Debug.Log($"❌ Spitting item out... [puzzleComplete={puzzleComplete}] (Got sequenceIndex={item.sequenceIndex}, expected={currentSequenceIndex})");
+            SpitOutItem(rb);
         }
     }
 
@@ -100,21 +93,20 @@ public class CauldronPuzzleManager : MonoBehaviour
     {
         if (rb == null) return;
 
-        // Pick a random direction (biased upwards)
-        Vector3 randomDir = UnityEngine.Random.insideUnitSphere;
-        if (randomDir.y < 0f)
-        {
-            randomDir.y = -randomDir.y; // ensure some upward force
-        }
-        randomDir.Normalize();
-
-        // Play spitted sound if assigned
-        if (spittedAudio != null)
+        // Only play spit sound if puzzle not complete
+        if (!puzzleComplete && spittedAudio != null)
         {
             audioSource.PlayOneShot(spittedAudio);
         }
 
-        // Apply force & torque
+        // Random direction biased upwards
+        Vector3 randomDir = UnityEngine.Random.insideUnitSphere;
+        if (randomDir.y < 0f)
+        {
+            randomDir.y = -randomDir.y;
+        }
+        randomDir.Normalize();
+
         rb.AddForce(randomDir * spitForce, ForceMode.Impulse);
         rb.AddTorque(UnityEngine.Random.insideUnitSphere * spitTorque, ForceMode.Impulse);
     }
