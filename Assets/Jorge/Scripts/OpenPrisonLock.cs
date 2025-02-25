@@ -7,6 +7,7 @@ public class OpenPrisonLock : MonoBehaviour
     private bool _doorOpen = false;
     private Animator _animator;
     [SerializeField] private GameObject _door;  // Go que se abrirá al introducir la llave
+    [SerializeField] AudioSource _doorOpenSound;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class OpenPrisonLock : MonoBehaviour
         if(!_doorOpen && other.transform.gameObject.layer == 11)
         {
             _animator.SetTrigger("TrOpenPrison");
+            _doorOpenSound.Play();
             _doorOpen = true;
         }
     }

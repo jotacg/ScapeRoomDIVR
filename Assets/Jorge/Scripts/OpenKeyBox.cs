@@ -6,6 +6,7 @@ public class OpenKeyBox : MonoBehaviour
 {
     private Animator _animator;
     [SerializeField] GameObject _keyBox;
+    [SerializeField] AudioSource _metalClang;
     private bool _keyBoxOpen = false;
 
     // Start is called before the first frame update
@@ -18,6 +19,7 @@ public class OpenKeyBox : MonoBehaviour
         if(!_keyBoxOpen)
         {
             _animator.SetTrigger("TrKeyBox");
+            _metalClang.Play();
             _keyBoxOpen = true;
         }
     }

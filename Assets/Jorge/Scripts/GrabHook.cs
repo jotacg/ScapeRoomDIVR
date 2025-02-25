@@ -9,6 +9,7 @@ public class GrabHook : MonoBehaviour
     [SerializeField] private GameObject _door;  // Go que se abrirá cuando se coja el gancho
     [SerializeField] private GameObject _rightController;
     [SerializeField] private GameObject _pokeInteractor;
+    [SerializeField] private GameObject _glove;  // Go que se abrirá cuando se coja el gancho
 
 
     // Start is called before the first frame update
@@ -25,6 +26,8 @@ public class GrabHook : MonoBehaviour
         {
             _doorOpen = true;
             _animator.SetTrigger("TrOpen");
+            _door.GetComponent<AudioSource>().Play();
+            _glove.SetActive(false);
             _rightController.SetActive(true);
             _pokeInteractor.GetComponent<CustomInputAction>().enabled = true;
         }
