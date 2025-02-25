@@ -1,113 +1,139 @@
 using UnityEngine;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 public class CauldronPuzzleManager : MonoBehaviour
 {
-    [Tooltip("List puzzle items in the correct sequence (0-based).")]
+    // List of PuzzleItem references in the exact *required* order
+    // In the Inspector, assign each slot with the *prefab or scene reference* 
+    // that you expect the player to throw, in sequence.
+    [Tooltip("Puzzle items in the correct sequence. Each entry = 1 item the player must throw.")]
     public List<PuzzleItem> puzzleOrder;
 
-    private int currentSequenceIndex = 0;
+    // Index of the NEXT required item in puzzleOrder
+    private int nextRequiredIndex = 0;
 
+    // Event: fired when puzzle completes (all required items are thrown)
     public static event Action OnCauldronPotionComplete;
 
     [Header("Audio")]
-    [Tooltip("Played when correct item is thrown.")]
-    public AudioClip ingestionAudio;
-    [Tooltip("Played when item is spat out (wrong order / non-puzzle). Disabled when puzzleComplete=true.")]
-    public AudioClip spittedAudio;
-
+    public AudioClip ingestionAudio; // For correct item
+    public AudioClip spittedAudio;   // For wrong item (disabled if puzzleComplete=true)
     private AudioSource audioSource;
 
     [Header("Spit-Out Settings (Wrong Order)")]
-    [Tooltip("Force applied to fling item out of the cauldron.")]
     public float spitForce = 5f;
-    [Tooltip("Torque (rotational force) for the spit out.")]
     public float spitTorque = 3f;
 
-    // Whether the puzzle is finished
     private bool puzzleComplete = false;
 
     private void Start()
     {
-        if (puzzleOrder == null)
+        if (puzzleOrder == null || puzzleOrder.Count == 0)
         {
-            Debug.LogError("No puzzleOrder assigned! Puzzle won't work correctly.");
+            Debug.LogError("puzzleOrder is empty! Puzzle will complete on first correct item (or do nothing).");
         }
         else
         {
             Debug.Log($"[CauldronPuzzleManager] puzzleOrder has {puzzleOrder.Count} items.");
         }
 
-        // Ensure there's an AudioSource on this GameObject
+        // Ensure an AudioSource
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
-        {
             audioSource = gameObject.AddComponent<AudioSource>();
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if we have a PuzzleItem
-        PuzzleItem item = other.GetComponent<PuzzleItem>();
-        Rigidbody rb = other.GetComponent<Rigidbody>();
-
-        if (item == null)
+        // If puzzle is done, still spit out new items but no spit sound
+        if (puzzleComplete)
         {
-            // Non-puzzle object => spit it out (force only, no ingestion)
-            Debug.Log($"Spitting out NON-puzzle item: {other.name}");
-            SpitOutItem(rb);
+            SpitOutItem(other, playSound: false);
             return;
         }
 
-        // If it's a puzzle item, check if puzzle is done or not
-        if (!puzzleComplete && item.sequenceIndex == currentSequenceIndex)
-        {
-            // Correct item
-            Debug.Log($"✅ Correct item in sequence! (Index {currentSequenceIndex})");
-            if (ingestionAudio != null)
-            {
-                audioSource.PlayOneShot(ingestionAudio);
-            }
-            Destroy(other.gameObject);
-            currentSequenceIndex++;
+        // Check for PuzzleItem
+        PuzzleItem thrownItem = other.GetComponent<PuzzleItem>();
+        Rigidbody rb = other.GetComponent<Rigidbody>();
 
-            // Check if puzzle is now complete
-            if (puzzleOrder != null && currentSequenceIndex >= puzzleOrder.Count)
+        if (thrownItem == null)
+        {
+            // Non-puzzle => spit out
+            Debug.Log($"Spitting out NON-puzzle item: {other.name}");
+            SpitOutItem(other, playSound: true);
+            return;
+        }
+
+        // Now we do direct matching:
+        // 1) The next required puzzle item in the list
+        // 2) Compare names (or references)
+
+        if (nextRequiredIndex < puzzleOrder.Count)
+        {
+            // The PuzzleItem we *expect* next:
+            PuzzleItem requiredItem = puzzleOrder[nextRequiredIndex];
+
+            // Compare itemName (or check if thrownItem == requiredItem if they are scene references)
+            bool isCorrect = (thrownItem.itemName == requiredItem.itemName);
+
+            if (isCorrect)
             {
-                puzzleComplete = true;
-                Debug.Log("✨ All items in correct order! Puzzle complete.");
-                OnCauldronPotionComplete?.Invoke();
+                Debug.Log($"✅ Correct item! (needed '{requiredItem.itemName}', got '{thrownItem.itemName}')");
+
+                // Play ingestion sound
+                if (ingestionAudio != null)
+                {
+                    audioSource.PlayOneShot(ingestionAudio);
+                }
+
+                // Destroy immediately (prevents double triggers from bounces)
+                Destroy(thrownItem.gameObject);
+
+                // Move to next required item
+                nextRequiredIndex++;
+
+                // Check puzzle complete
+                if (nextRequiredIndex >= puzzleOrder.Count)
+                {
+                    puzzleComplete = true;
+                    Debug.Log("✨ Puzzle complete! All items thrown in correct order.");
+                    OnCauldronPotionComplete?.Invoke();
+                }
+            }
+            else
+            {
+                // Wrong item => spit out
+                Debug.Log($"❌ Wrong item! Expected '{requiredItem.itemName}', got '{thrownItem.itemName}'");
+                SpitOutItem(other, playSound: true);
             }
         }
         else
         {
-            // Wrong item OR puzzleComplete. Spit it out.
-            Debug.Log($"❌ Spitting item out... [puzzleComplete={puzzleComplete}] (Got sequenceIndex={item.sequenceIndex}, expected={currentSequenceIndex})");
-            SpitOutItem(rb);
+            // Safety: If nextRequiredIndex >= puzzleOrder.Count, puzzle is done 
+            // but we haven't set puzzleComplete for some reason?
+            Debug.Log("We have no more required items, but puzzleComplete=false? Spitting item out.");
+            SpitOutItem(other, playSound: false);
         }
     }
 
-    private void SpitOutItem(Rigidbody rb)
+    private void SpitOutItem(Collider col, bool playSound)
     {
-        if (rb == null) return;
-
-        // Only play spit sound if puzzle not complete
-        if (!puzzleComplete && spittedAudio != null)
+        Rigidbody rb = col.GetComponent<Rigidbody>();
+        if (rb != null)
         {
-            audioSource.PlayOneShot(spittedAudio);
-        }
+            if (!puzzleComplete && playSound && spittedAudio != null)
+            {
+                audioSource.PlayOneShot(spittedAudio);
+            }
 
-        // Random direction biased upwards
-        Vector3 randomDir = UnityEngine.Random.insideUnitSphere;
-        if (randomDir.y < 0f)
-        {
-            randomDir.y = -randomDir.y;
-        }
-        randomDir.Normalize();
+            // random upward direction
+            Vector3 dir = UnityEngine.Random.insideUnitSphere;
+            if (dir.y < 0f) dir.y = -dir.y;
+            dir.Normalize();
 
-        rb.AddForce(randomDir * spitForce, ForceMode.Impulse);
-        rb.AddTorque(UnityEngine.Random.insideUnitSphere * spitTorque, ForceMode.Impulse);
+            rb.AddForce(dir * spitForce, ForceMode.Impulse);
+            rb.AddTorque(UnityEngine.Random.insideUnitSphere * spitTorque, ForceMode.Impulse);
+        }
     }
 }

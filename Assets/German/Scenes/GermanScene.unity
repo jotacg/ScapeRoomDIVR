@@ -5033,7 +5033,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c06eb4cbc064403a5feaed077d533e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleOrder: []
+  puzzleOrder:
+  - {fileID: 1950570452}
+  - {fileID: 940064032}
+  - {fileID: 1815736992}
   ingestionAudio: {fileID: 8300000, guid: bf818cce352f4404e9cda18d5ba8952b, type: 3}
   spittedAudio: {fileID: 8300000, guid: 5318c0c653ad54db7be081c1a391547e, type: 3}
   spitForce: 5
@@ -13479,7 +13482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6496ab03d61a54d71bd3072c752ac376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sequenceIndex: 1
+  itemName: GreenPotion
 --- !u!1001 &950694821
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30792,7 +30795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6496ab03d61a54d71bd3072c752ac376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sequenceIndex: 2
+  itemName: MagicBook
 --- !u!1 &1820053039
 GameObject:
   m_ObjectHideFlags: 0
@@ -32939,7 +32942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6496ab03d61a54d71bd3072c752ac376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sequenceIndex: 0
+  itemName: RedPotion
 --- !u!1 &1957492073
 GameObject:
   m_ObjectHideFlags: 0
