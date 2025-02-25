@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Aimar/Scenes/AimarPlaya.unity
+    guid: cca4d4f9a6281054389f1ecc09dbcd94
+  - enabled: 1
+    path: Assets/Aimar/Scenes/AimarPatio.unity
+    guid: b1f144c4e2516df49888b522d2a4c2d0
+  - enabled: 0
     path: Assets/German/Scenes/GermanScene.unity
     guid: 7c6ffbec2f9234e928a6002bcfb4b29a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Aimar/Scenes/AimarScene.unity
     guid: 0c8023c3ee5c46f43b5d6f3b5e4d001b
   - enabled: 0
