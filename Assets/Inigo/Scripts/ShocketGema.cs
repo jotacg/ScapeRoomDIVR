@@ -19,7 +19,8 @@ public class ShocketGema : MonoBehaviour
         XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
         if (grabbedObject != null)
         {
-            grabbedObject.enabled = false; // Desactiva el grab interactable para que no pueda ser sacado
+            Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
+            rb.isKinematic = true;
         }
     }
 }

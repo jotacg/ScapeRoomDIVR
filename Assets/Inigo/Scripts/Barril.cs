@@ -7,7 +7,7 @@ public class Barril : MonoBehaviour
 {
     bool grabed = false;
     [SerializeField] int layerAcambiar = 0;
-    int vecesAgarrado = 0;
+    protected int vecesAgarrado = 0;
     int layerInicial;
     // Start is called before the first frame update
     void Start()
