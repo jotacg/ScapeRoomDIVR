@@ -51,7 +51,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _LightPos: {r: 0.0968297, g: -7.724675, b: 13.799791, a: 0}
+    - _LightPos: {r: 0.096839204, g: -7.7246776, b: 13.799792, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &9033743062206822019
 MonoBehaviour:

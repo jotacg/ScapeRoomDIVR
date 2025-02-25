@@ -4,11 +4,27 @@ using UnityEngine;
 
 public class CandadoBarco : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    [SerializeField] Animator animPuertaDer, animPuertaIzq, animCandado;
+    Rigidbody rb;
+    private void Start()
     {
-        if(collision.gameObject.tag == "Llave")
-        {
-            
-        }
+        rb = GetComponent<Rigidbody>();
+    }
+
+
+    public void abrir()
+    {
+        animCandado.Play("candado");
+        StartCoroutine(abrirelresto());
+
+    }
+
+    IEnumerator abrirelresto()
+    {
+        yield return new WaitForSeconds(0.8f);
+        rb.isKinematic = false;
+        animPuertaDer.Play("puertaDer");
+        animPuertaIzq.Play("puertaIzq");
+        ;
     }
 }
