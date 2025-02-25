@@ -7100,6 +7100,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1794262845}
+    - targetCorrespondingSourceObject: {fileID: 1251353114522481715, guid: 6cd058d24e3e2c248a89283b2af2776b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1794262848}
   m_SourcePrefab: {fileID: 100100000, guid: 6cd058d24e3e2c248a89283b2af2776b, type: 3}
 --- !u!4 &585017749 stripped
 Transform:
@@ -10280,6 +10284,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1977477889}
+    - targetCorrespondingSourceObject: {fileID: 926420032572402803, guid: d16f3bb8a6507ba48a164858282c898c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1977477892}
   m_SourcePrefab: {fileID: 100100000, guid: d16f3bb8a6507ba48a164858282c898c, type: 3}
 --- !u!4 &871047523 stripped
 Transform:
@@ -10850,27 +10858,27 @@ PrefabInstance:
     - target: {fileID: 4220274215976610951, guid: fd28f23af44f73f4a95e33435872ad15,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4220274215976610951, guid: fd28f23af44f73f4a95e33435872ad15,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4220274215976610951, guid: fd28f23af44f73f4a95e33435872ad15,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 252
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4220274215976610951, guid: fd28f23af44f73f4a95e33435872ad15,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 126
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4220274215976610951, guid: fd28f23af44f73f4a95e33435872ad15,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4422659089949380333, guid: fd28f23af44f73f4a95e33435872ad15,
         type: 3}
@@ -16847,17 +16855,17 @@ PrefabInstance:
     - target: {fileID: 3959008032928451102, guid: d18be603c12f9784d8fe93db62320530,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.538
+      value: 9.574
       objectReference: {fileID: 0}
     - target: {fileID: 3959008032928451102, guid: d18be603c12f9784d8fe93db62320530,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 18.66
+      value: 18.644
       objectReference: {fileID: 0}
     - target: {fileID: 3959008032928451102, guid: d18be603c12f9784d8fe93db62320530,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -56.96
+      value: -56.754
       objectReference: {fileID: 0}
     - target: {fileID: 3959008032928451102, guid: d18be603c12f9784d8fe93db62320530,
         type: 3}
@@ -28139,6 +28147,21 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3213388140244033404, guid: ef368702c8064884297401d2a85904da, type: 3}
+--- !u!114 &1794262848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794262840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c16be47e8f5a648dbb0f588d3b5586bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundAudio: {fileID: 0}
+  activationAudio: {fileID: 0}
+  deactivateOnStart: 1
 --- !u!1001 &1800768208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30683,6 +30706,21 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8654494679675762179, guid: 3bfadaf413405aa4db391b91aefd0e82, type: 3}
+--- !u!114 &1977477892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977477884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0448afdf11c384673a976adcdfb474a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundAudio: {fileID: 0}
+  activationAudio: {fileID: 0}
+  deactivateOnStart: 1
 --- !u!1001 &1986602448
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32004,7 +32042,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: adcac75087a17704ca6c0c3b15bc3aa5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5fe4bc0609c03e24097e0cb3666a4fb5, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
