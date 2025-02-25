@@ -4883,7 +4883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c6a56b09cbb40fc8305574bbe7eddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneName: DungeonJorge
+  nextSceneName: AimarScene
 --- !u!1 &439588099
 GameObject:
   m_ObjectHideFlags: 0
