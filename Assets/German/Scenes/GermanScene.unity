@@ -1070,7 +1070,7 @@ MonoBehaviour:
     features: 1398
     renderFilters:
       lodFlags: 31
-      manifestationFlags: 2
+      manifestationFlags: 6
       viewFlags: 3
       subMeshInclusionFlags: -1
       quality: 1
@@ -1078,7 +1078,7 @@ MonoBehaviour:
       reserved: 0000000000000000000000000000000000000000000000000000000000000000
   _validateCache: 1
   _activeView: 2
-  _activeManifestation: 2
+  _activeManifestation: 4
   _activeSubMeshes: -1
   _activeSubMeshesIncludeUntyped: 1
   _inputManager: {fileID: 151517675}
@@ -2252,6 +2252,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1565887663999455726, guid: 3e07eccb5e6f459d886de95044adb1d9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1565887663999455727, guid: 3e07eccb5e6f459d886de95044adb1d9,
         type: 3}
       propertyPath: m_LocalScale.z
@@ -2788,7 +2793,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c8ded1a55b21bb488bdf29dc15bf63e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterController: {fileID: 0}
 --- !u!1 &275558722
 GameObject:
   m_ObjectHideFlags: 0
@@ -3007,7 +3011,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c8ded1a55b21bb488bdf29dc15bf63e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterController: {fileID: 0}
 --- !u!54 &280359348
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12978,7 +12981,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c8ded1a55b21bb488bdf29dc15bf63e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterController: {fileID: 0}
 --- !u!114 &901633418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16754,7 +16756,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c8ded1a55b21bb488bdf29dc15bf63e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterController: {fileID: 0}
 --- !u!1001 &1180023130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19647,12 +19648,12 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.3
-  m_Height: 1.7
+  m_Height: 1.8
   m_Direction: 1
-  m_Center: {x: 0, y: 0.85, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &1392785774
 GameObject:
   m_ObjectHideFlags: 0
@@ -22198,7 +22199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c8ded1a55b21bb488bdf29dc15bf63e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterController: {fileID: 0}
 --- !u!114 &1619068925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23463,7 +23463,7 @@ PrefabInstance:
     - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.006
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
@@ -23563,7 +23563,7 @@ PrefabInstance:
     - target: {fileID: 7696548424635294051, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.93
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7696548424635294051, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
@@ -23594,6 +23594,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ModelPrefab
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014170783728641054, guid: 895f6f3c2d334633b5800312285058d2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9014170784424948809, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
