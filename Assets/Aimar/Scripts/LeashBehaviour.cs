@@ -12,19 +12,21 @@ public class LeashBehaviour : MonoBehaviour
     [SerializeField] float moveTime;
     [SerializeField] float arreHeight;
     [SerializeField] float soHeight;
+    [SerializeField] GameObject riendaLocalPos;
 
     [Header("Cuadriga")]
     [SerializeField] float moveSpeed;
     [SerializeField] Rigidbody cuadriga;
     [SerializeField] float maxSpeed;
     [SerializeField] float rotSpeed = 2;
-   
+
 
     [Header("Caballos")]
     [SerializeField] Animator[] horses;
-   
+
 
     Vector3 originalPosition;
+    
     Quaternion originalRotation;
     float restRadious = 0.1f;
     bool waiting = false;
@@ -40,23 +42,28 @@ public class LeashBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
+    float currentAngle = 0;
     void Update()
     {
-       
         
+
         if (xRGrab.isSelected && rightHand.isSelectActive && leftHand.isSelectActive)
         {
-            
-            if(currentSpeed > 0)
+
+            if (currentSpeed > 0)
             {
-                cuadriga.transform.position -= cuadriga.transform.forward *moveSpeed * currentSpeed * Time.deltaTime;
-                cuadriga.transform.rotation *= Quaternion.Euler(-Vector3.up * (180+ cuadriga.transform.rotation.eulerAngles.y - transform.rotation.eulerAngles.y) *Time.deltaTime * rotSpeed);
-                
+                cuadriga.transform.position -= cuadriga.transform.forward * moveSpeed * currentSpeed * Time.deltaTime;
+
+                float angleDifference = riendaLocalPos.transform.localPosition.x;
+                currentAngle += angleDifference * Time.deltaTime * rotSpeed;
+                cuadriga.transform.rotation = Quaternion.Euler(-Vector3.up * currentAngle);
+
+
             }
 
             if (!waiting)
             {
-                if(transform.localPosition.y - originalPosition.y > arreHeight && !arreChecked)
+                if (transform.localPosition.y - originalPosition.y > arreHeight && !arreChecked)
                 {
                     arreChecked = true;
                     StartCoroutine(CheckArre());
@@ -69,36 +76,35 @@ public class LeashBehaviour : MonoBehaviour
 
             if (!soChecked)
             {
-                if(transform.localPosition.y - originalPosition.y > soHeight)
+                if (transform.localPosition.y - originalPosition.y > soHeight)
                 {
-                   if(currentSpeed > 0)
+                    if (currentSpeed > 0)
                     {
                         currentSpeed--;
                     }
-                   if(currentSpeed == 0)
+                    if (currentSpeed == 0)
                     {
-                        foreach(Animator a in horses)
+                        foreach (Animator a in horses)
                         {
-                            a.SetTrigger("Stop");
+                            a.SetBool("Stop", true);
                             a.speed = 1;
                         }
                     }
                     soChecked = true;
                 }
-            }else if((Mathf.Abs(transform.localPosition.y - originalPosition.y) < restRadious)){
+            }
+            else if ((Mathf.Abs(transform.localPosition.y - originalPosition.y) < restRadious))
+            {
                 soChecked = false;
             }
         }
         else
         {
-            currentSpeed = 0;
+            StopHorses();
+            
             transform.localPosition = originalPosition;
             transform.localRotation = originalRotation;
-            foreach (Animator a in horses)
-            {
-                a.SetTrigger("Stop");
-                a.speed = 1;
-            }
+            
         }
     }
 
@@ -108,19 +114,20 @@ public class LeashBehaviour : MonoBehaviour
         yield return new WaitForSeconds(moveTime);
         if (Mathf.Abs(transform.localPosition.y - originalPosition.y) < restRadious)
         {
-          //  texto.text = "ARRE" + arreCount++;
-          if(currentSpeed < maxSpeed)
-           {
+            //  texto.text = "ARRE" + arreCount++;
+            if (currentSpeed < maxSpeed)
+            {
                 currentSpeed++;
-                
-           }
+
+            }
             foreach (Animator a in horses)
             {
-                if(currentSpeed == 1)
+                if (currentSpeed == 1)
                 {
+                    a.SetBool("Stop", false);
                     a.SetTrigger("Run");
                 }
-                
+
                 a.speed = currentSpeed;
             }
 
@@ -132,5 +139,15 @@ public class LeashBehaviour : MonoBehaviour
     {
         transform.localPosition = originalPosition;
         transform.localRotation = originalRotation;
+    }
+
+    public void StopHorses()
+    {
+        currentSpeed = 0;
+        foreach (Animator a in horses)
+        {
+            a.SetBool("Stop", true);
+            a.speed = 1;
+        }
     }
 }
