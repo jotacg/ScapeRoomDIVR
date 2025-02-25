@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class ActivateOnFirstGem : MonoBehaviour
 {
-    private AudioSource audioSource;
+    public AudioSource backgroundAudio; // Assign background loop (stops when activated)
+    public AudioSource activationAudio; // Assign activation sound (plays when activated)
+    public bool deactivateOnStart = true; // Editable in Unity Inspector
 
     private void OnEnable()
     {
@@ -16,8 +18,10 @@ public class ActivateOnFirstGem : MonoBehaviour
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        gameObject.SetActive(false); // Start disabled
+        if (deactivateOnStart)
+        {
+            gameObject.SetActive(false); // Start disabled if set in editor
+        }
     }
 
     private void ActivateObject()
@@ -25,9 +29,14 @@ public class ActivateOnFirstGem : MonoBehaviour
         Debug.Log("✨ First Gem inserted! Activating object: " + gameObject.name);
         gameObject.SetActive(true);
 
-        if (audioSource != null)
+        if (backgroundAudio != null)
         {
-            audioSource.Play();
+            backgroundAudio.Stop(); // Stop background audio permanently
+        }
+
+        if (activationAudio != null)
+        {
+            activationAudio.Play(); // Play activation sound effect
         }
     }
 }

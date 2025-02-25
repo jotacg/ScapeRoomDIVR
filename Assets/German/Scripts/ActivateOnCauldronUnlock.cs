@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class ActivateOnCauldronUnlock : MonoBehaviour
 {
-    private AudioSource audioSource;
+    public AudioSource backgroundAudio;
+    public AudioSource activationAudio;
+    public bool deactivateOnStart = true; // Editable in Unity Inspector
 
     private void OnEnable()
     {
@@ -16,8 +18,10 @@ public class ActivateOnCauldronUnlock : MonoBehaviour
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        gameObject.SetActive(false); // Start disabled
+        if (deactivateOnStart)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void ActivateObject()
@@ -25,9 +29,14 @@ public class ActivateOnCauldronUnlock : MonoBehaviour
         Debug.Log("🔓 Cauldron unlocked! Activating object: " + gameObject.name);
         gameObject.SetActive(true);
 
-        if (audioSource != null)
+        if (backgroundAudio != null)
         {
-            audioSource.Play();
+            backgroundAudio.Stop();
+        }
+
+        if (activationAudio != null)
+        {
+            activationAudio.Play();
         }
     }
 }
