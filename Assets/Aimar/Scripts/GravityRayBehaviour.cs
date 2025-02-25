@@ -26,9 +26,10 @@ public class GravityRayBehaviour : MonoBehaviour
         objRB.constraints = RigidbodyConstraints.None;
         if (objInPlace)
         {
-
+            
             objRB.AddForce(rayPoint.forward * launchForce, ForceMode.Impulse);
         }
+        objective.layer = LayerMask.NameToLayer("Default");
         objInPlace = false;
         objective = null;
         objRB = null;
@@ -62,7 +63,7 @@ public class GravityRayBehaviour : MonoBehaviour
                 {
                     objective = hit.transform.gameObject;
                     objRB = objective.GetComponent<Rigidbody>();
-                    
+                    objective.layer = LayerMask.NameToLayer("Grab");
                     pressing = false;
                 }
 
