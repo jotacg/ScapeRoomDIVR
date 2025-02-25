@@ -14,13 +14,16 @@ namespace WizardsCode.VFX
     public class FlickeringLights : MonoBehaviour
     {
         [SerializeField, Tooltip("Minimum light intensity for the flicker effect.")]
-        float _minIntensity = 0f;
+        float _minIntensity = 0.7f;  // More stable baseline intensity
+
         [SerializeField, Tooltip("Maximum light intensity for the flicker effect.")]
-        float _maxIntensity = 1f;
+        float _maxIntensity = 1.2f;  // Less extreme flickering
+
         [SerializeField, Range(1, 50), Tooltip("How to smooth out the randomness; lower values = sparks (lots of flickering), mid = torch (some flickering), high = lantern (steady)")]
-        int _smoothing = 5;
+        int _smoothing = 20;  // Higher smoothing for stability
+
         [SerializeField, Range(0, 0.1f), Tooltip("The maximum amount of movement the light source should have.")]
-        float _randomMovement = 0.01f;
+        float _randomMovement = 0.005f;  // Less movement, more realism
 
         private Light[] _lights;
         private Renderer[] _renderers;
