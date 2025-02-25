@@ -25,6 +25,7 @@ public class LeashBehaviour : MonoBehaviour
     [SerializeField] Animator[] horses;
 
 
+
     Vector3 originalPosition;
     
     Quaternion originalRotation;
@@ -49,7 +50,7 @@ public class LeashBehaviour : MonoBehaviour
 
         if (xRGrab.isSelected && rightHand.isSelectActive && leftHand.isSelectActive)
         {
-
+            
             if (currentSpeed > 0)
             {
                 cuadriga.transform.position -= cuadriga.transform.forward * moveSpeed * currentSpeed * Time.deltaTime;
@@ -100,6 +101,7 @@ public class LeashBehaviour : MonoBehaviour
         }
         else
         {
+           
             StopHorses();
             
             transform.localPosition = originalPosition;
