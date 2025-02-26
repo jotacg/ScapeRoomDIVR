@@ -3556,6 +3556,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 825014349}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &825014353 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7610397800870158640, guid: b0e414a76dcc5d844a9600b97bae4f45,
+    type: 3}
+  m_PrefabInstance: {fileID: 825014349}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &860832653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4243,6 +4249,11 @@ PrefabInstance:
       propertyPath: audioS
       value: 
       objectReference: {fileID: 1076393993}
+    - target: {fileID: 403168546016230308, guid: 74276305506d19f40a8bdfb8e9cebfed,
+        type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 825014353}
     - target: {fileID: 993027983389757931, guid: 74276305506d19f40a8bdfb8e9cebfed,
         type: 3}
       propertyPath: rolloffMode
