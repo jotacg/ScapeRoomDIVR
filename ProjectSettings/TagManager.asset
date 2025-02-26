@@ -8,6 +8,7 @@ TagManager:
   - Suelo
   - Gravity
   - Valla
+  - Vela
   layers:
   - Default
   - TransparentFX
