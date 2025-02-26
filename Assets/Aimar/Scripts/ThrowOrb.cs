@@ -25,6 +25,12 @@ public class ThrowOrb : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints.FreezePosition;
             grounded = true;
+            RaycastHit hit;
+
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity))
+            {
+                transform.position = hit.point;
+            }
         }
     }
 

@@ -11,11 +11,14 @@ public class GravityRayBehaviour : MonoBehaviour
     [SerializeField] float launchForce;
     [SerializeField] float rayForce;
     [SerializeField] LineRenderer line;
+    [SerializeField] AudioSource audioS;
     bool pressing = false;
+    [SerializeField] Transform cameraTransform;
 
     Vector3 lineHitPos;
     public void OnActivateEnter()
     {
+        audioS.Play();
         pressing = true;
     }
 
@@ -27,7 +30,7 @@ public class GravityRayBehaviour : MonoBehaviour
         if (objInPlace)
         {
             
-            objRB.AddForce(rayPoint.forward * launchForce, ForceMode.Impulse);
+            objRB.AddForce(cameraTransform.forward * launchForce, ForceMode.Impulse);
         }
         if (objective)
         {
@@ -37,6 +40,7 @@ public class GravityRayBehaviour : MonoBehaviour
         objective = null;
         objRB = null;
         pressing = false;
+        audioS.Stop();
     }
 
     void Update()
