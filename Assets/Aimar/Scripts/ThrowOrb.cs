@@ -25,6 +25,7 @@ public class ThrowOrb : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints.FreezePosition;
             grounded = true;
+            
         }
     }
 

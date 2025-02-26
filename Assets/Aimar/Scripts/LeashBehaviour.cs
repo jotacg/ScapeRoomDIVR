@@ -24,7 +24,7 @@ public class LeashBehaviour : MonoBehaviour
 
     [Header("Caballos")]
     [SerializeField] Animator[] horses;
-
+    [SerializeField] AudioSource audioSource;
 
 
     Vector3 originalPosition;
@@ -83,9 +83,11 @@ public class LeashBehaviour : MonoBehaviour
                     if (currentSpeed > 0)
                     {
                         currentSpeed--;
+                        
                     }
                     if (currentSpeed == 0)
                     {
+                        audioSource.Stop();
                         foreach (Animator a in horses)
                         {
                             a.SetBool("Stop", true);
@@ -123,6 +125,10 @@ public class LeashBehaviour : MonoBehaviour
                 currentSpeed++;
 
             }
+            if(currentSpeed == 1)
+            {
+                audioSource.Play();
+            }
             foreach (Animator a in horses)
             {
                 if (currentSpeed == 1)
@@ -146,6 +152,7 @@ public class LeashBehaviour : MonoBehaviour
 
     public void StopHorses()
     {
+        audioSource.Stop();
         currentSpeed = 0;
         waiting = false;
         arreChecked = false;
