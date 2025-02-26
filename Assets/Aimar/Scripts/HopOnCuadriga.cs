@@ -22,13 +22,13 @@ public class HopOnCuadriga : MonoBehaviour
     {
         if (onCuadriga)
         {
-            xrOrigin.GetComponent<Collider>().enabled = true;
+            xrOrigin.GetComponent<Rigidbody>().isKinematic = false;
             xrOrigin.transform.position = floorPosition.position;
             onCuadriga = false;
         }
         else
         {
-            xrOrigin.GetComponent<Collider>().enabled = false;
+            xrOrigin.GetComponent<Rigidbody>().isKinematic = true;
             xrOrigin.transform.position = cuadrigaPosition.position;
             onCuadriga = true;
         }

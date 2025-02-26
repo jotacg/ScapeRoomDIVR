@@ -15,8 +15,9 @@ public class DoorBehaviour : MonoBehaviour
     {
         if(collision.gameObject == openObject)
         {
-            rb.isKinematic = false;
+            rb.constraints = RigidbodyConstraints.None;
             rb.AddForce(transform.forward * openForce, ForceMode.Impulse);
+            rb.tag = "Gravity";
         }
     }
 }

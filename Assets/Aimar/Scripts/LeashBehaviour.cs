@@ -13,6 +13,7 @@ public class LeashBehaviour : MonoBehaviour
     [SerializeField] float arreHeight;
     [SerializeField] float soHeight;
     [SerializeField] GameObject riendaLocalPos;
+    [SerializeField] GameObject rotObject;
 
     [Header("Cuadriga")]
     [SerializeField] float moveSpeed;
@@ -55,7 +56,7 @@ public class LeashBehaviour : MonoBehaviour
             {
                 cuadriga.transform.position -= cuadriga.transform.forward * moveSpeed * currentSpeed * Time.deltaTime;
 
-                float angleDifference = riendaLocalPos.transform.localPosition.x;
+                float angleDifference = rotObject.transform.localPosition.x;
                 currentAngle += angleDifference * Time.deltaTime * rotSpeed;
                 cuadriga.transform.rotation = Quaternion.Euler(-Vector3.up * currentAngle);
 
@@ -64,7 +65,7 @@ public class LeashBehaviour : MonoBehaviour
 
             if (!waiting)
             {
-                if (transform.localPosition.y - originalPosition.y > arreHeight && !arreChecked)
+                if (transform.position.y - riendaLocalPos.transform.position.y > arreHeight && !arreChecked)
                 {
                     arreChecked = true;
                     StartCoroutine(CheckArre());
@@ -77,7 +78,7 @@ public class LeashBehaviour : MonoBehaviour
 
             if (!soChecked)
             {
-                if (transform.localPosition.y - originalPosition.y > soHeight)
+                if (transform.position.y - riendaLocalPos.transform.position.y > soHeight)
                 {
                     if (currentSpeed > 0)
                     {
@@ -94,7 +95,7 @@ public class LeashBehaviour : MonoBehaviour
                     soChecked = true;
                 }
             }
-            else if ((Mathf.Abs(transform.localPosition.y - originalPosition.y) < restRadious))
+            else if ((Mathf.Abs(transform.position.y - riendaLocalPos.transform.position.y) < restRadious))
             {
                 soChecked = false;
             }
@@ -114,7 +115,7 @@ public class LeashBehaviour : MonoBehaviour
     {
         waiting = true;
         yield return new WaitForSeconds(moveTime);
-        if (Mathf.Abs(transform.localPosition.y - originalPosition.y) < restRadious)
+        if (Mathf.Abs(transform.position.y - riendaLocalPos.transform.position.y) < restRadious)
         {
             //  texto.text = "ARRE" + arreCount++;
             if (currentSpeed < maxSpeed)
@@ -146,6 +147,9 @@ public class LeashBehaviour : MonoBehaviour
     public void StopHorses()
     {
         currentSpeed = 0;
+        waiting = false;
+        arreChecked = false;
+        soChecked = false;
         foreach (Animator a in horses)
         {
             a.SetBool("Stop", true);

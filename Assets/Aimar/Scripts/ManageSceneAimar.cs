@@ -15,4 +15,12 @@ public class ManageSceneAimar : MonoBehaviour
             SceneManager.LoadScene(newScene);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == activateObject)
+        {
+            SceneManager.LoadScene(newScene);
+        }
+    }
 }

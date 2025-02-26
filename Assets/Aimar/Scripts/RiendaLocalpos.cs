@@ -7,7 +7,7 @@ public class RiendaLocalpos : MonoBehaviour
     [SerializeField] Transform riendas;
     
 
-    private void Update()
+    private void Awake()
     {
         transform.position = riendas.transform.position;
         transform.rotation = riendas.transform.rotation;

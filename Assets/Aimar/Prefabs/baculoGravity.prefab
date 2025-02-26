@@ -536,8 +536,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rayPoint: {fileID: 6567554887115251647}
-  launchForce: 50
-  rayForce: 20
+  launchForce: 15
+  rayForce: 1
   line: {fileID: 1408196060049075257}
 --- !u!1001 &3052965692434462093
 PrefabInstance:
@@ -606,6 +606,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Baculo
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8040bcefe39cab643b953e715e9d8ccd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
