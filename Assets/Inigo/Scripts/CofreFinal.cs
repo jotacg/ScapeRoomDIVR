@@ -7,6 +7,9 @@ public class CofreFinal : MonoBehaviour
     [SerializeField] int numGemas = 3;
     public int numActualGemas = 0;
     Animator anim;
+    [SerializeField] string animNombre = "";
+    [SerializeField] GameObject body;
+    [SerializeField] AudioSource audioSrc;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,8 +26,9 @@ public class CofreFinal : MonoBehaviour
         numActualGemas++;
         if (numActualGemas == numGemas)
         { 
-            anim.Play("AbrirCofre");
-            print("asdfasdfas");
+            anim.Play(animNombre);
+            audioSrc.Play();
+            body.SetActive(true);
         }
     }
 }

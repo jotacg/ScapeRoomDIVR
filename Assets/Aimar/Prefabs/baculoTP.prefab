@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 482261231276758512}
   - component: {fileID: 7341414740223169264}
   - component: {fileID: 5178168239526317962}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: OrbPlace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 6668554674659518712}
   - component: {fileID: 476477266513476932}
   - component: {fileID: 2423153189530760728}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: baculoTP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2788348720824139360}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GrabAttach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2066050674600410095}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Place
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,6 +486,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Baculo
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8040bcefe39cab643b953e715e9d8ccd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

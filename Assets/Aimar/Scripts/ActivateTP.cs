@@ -11,6 +11,7 @@ public class ActivateTP : MonoBehaviour
     [SerializeField] Transform xrOrigin;
     [SerializeField] ThrowOrb orb;
     [SerializeField] Transform baculo;
+    [SerializeField] AudioSource audioSource;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Suelo"))
@@ -18,6 +19,7 @@ public class ActivateTP : MonoBehaviour
             if(xRGrab.isSelected && rightHand.isSelectActive && orb.grounded) //Esta agarrando el baculo con la mano derecha
             {
                 xrOrigin.position = orb.transform.position;
+                audioSource.Play();
                 StartCoroutine(WaitForTP());
             }
         }

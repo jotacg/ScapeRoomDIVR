@@ -11,11 +11,14 @@ public class GravityRayBehaviour : MonoBehaviour
     [SerializeField] float launchForce;
     [SerializeField] float rayForce;
     [SerializeField] LineRenderer line;
+    [SerializeField] AudioSource audioS;
     bool pressing = false;
+    [SerializeField] Transform cameraTransform;
 
     Vector3 lineHitPos;
     public void OnActivateEnter()
     {
+        audioS.Play();
         pressing = true;
     }
 
@@ -26,13 +29,18 @@ public class GravityRayBehaviour : MonoBehaviour
         objRB.constraints = RigidbodyConstraints.None;
         if (objInPlace)
         {
-
-            objRB.AddForce(rayPoint.forward * launchForce, ForceMode.Impulse);
+            
+            objRB.AddForce(cameraTransform.forward * launchForce, ForceMode.Impulse);
+        }
+        if (objective)
+        {
+            objective.layer = LayerMask.NameToLayer("Default");
         }
         objInPlace = false;
         objective = null;
         objRB = null;
         pressing = false;
+        audioS.Stop();
     }
 
     void Update()
@@ -62,7 +70,7 @@ public class GravityRayBehaviour : MonoBehaviour
                 {
                     objective = hit.transform.gameObject;
                     objRB = objective.GetComponent<Rigidbody>();
-                    
+                    objective.layer = LayerMask.NameToLayer("Grab");
                     pressing = false;
                 }
 
@@ -73,8 +81,8 @@ public class GravityRayBehaviour : MonoBehaviour
         {
             
             line.GetPosition(1).Set(objective.transform.position.x, objective.transform.position.y, objective.transform.position.z);
-            objRB.AddForce(-(objective.transform.position - rayPoint.position)*rayForce);
-            if (Vector3.Distance(objective.transform.position, rayPoint.position) < .5f)
+            objRB.AddForce(-(objective.transform.position - rayPoint.position + transform.up)*rayForce);
+            if (Vector3.Distance(objective.transform.position, rayPoint.position + transform.up) < 1f)
             {
                 objRB.constraints = RigidbodyConstraints.FreezePosition;
                 objInPlace = true;
@@ -82,7 +90,7 @@ public class GravityRayBehaviour : MonoBehaviour
         }
         if (objInPlace)
         {
-            objective.transform.position = rayPoint.position;
+            objective.transform.position = rayPoint.position + transform.up;
         }
     }
 }

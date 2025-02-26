@@ -11,15 +11,12 @@ public class Espada : Barril
     [SerializeField] private float maxLight;
 
     private Coroutine actualCoroutine;
-    public float t = 0f; // Progreso de interpolación
-
+    public float t = 0f;
     [SerializeField] private float lerpDuration = 1.5f;
 
     void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
-
-        // Crear una instancia del material para modificarlo sin afectar materiales globales
         currentMaterial = new Material(meshRenderer.material);
         meshRenderer.material = currentMaterial;
 
@@ -60,31 +57,12 @@ public class Espada : Barril
         {
             t = elapsedTime / lerpDuration;
             lightSword.intensity = Mathf.Lerp(startLight, targetLight, t);
-
-            // Interpolación del color del material
             currentMaterial.color = Color.Lerp(startColor, targetColor, t);
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        // Asegurarse de establecer los valores finales correctos
         lightSword.intensity = activar ? maxLight : 0f;
         currentMaterial.color = activar ? endMaterial.color : initialMaterial.color;
-    }
-
-
-
-    public bool actualbool, previusbool;
-    private void Update()
-    {
-        if(actualbool != previusbool)
-        {
-            if (actualCoroutine != null)
-                StopCoroutine(actualCoroutine);
-
-            actualCoroutine = StartCoroutine(LerpMaterial(actualbool));
-            previusbool = actualbool;
-        }
     }
 }
