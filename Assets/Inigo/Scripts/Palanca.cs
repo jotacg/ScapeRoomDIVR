@@ -10,6 +10,7 @@ public class Palanca : MonoBehaviour
     bool usedPalanca = false;
     [SerializeField] Rigidbody rb;
     [SerializeField] Collider col;
+    [SerializeField] AudioSource audioSrc;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,18 +25,24 @@ public class Palanca : MonoBehaviour
             if (!part.isPlaying)
             {
                 part.Play();
+                audioSrc.Play();
                 if (!usedPalanca)
                 {
                     rb.isKinematic = false;
                     rb.AddForce(rb.transform.up * 30, ForceMode.Impulse);
                     col.enabled = true;
                     usedPalanca = true;
+
                 }
             }
         }
         else
         {
-            if(part.isPlaying) part.Stop();
+            if (part.isPlaying)
+            {
+                audioSrc.Stop();
+                part.Stop();
+            }
         }
     }
 }
