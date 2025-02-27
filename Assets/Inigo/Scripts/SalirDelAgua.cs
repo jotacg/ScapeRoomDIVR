@@ -7,6 +7,6 @@ public class SalirDelAgua : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 6) SceneManager.LoadScene("Aimar/Scenes/AimarPlaya");
+        if (collision.gameObject.layer == 6) SceneManager.LoadScene("Jorge/Scenes/DungeonJorge");
     }
 }
