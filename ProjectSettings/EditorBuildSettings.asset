@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/German/Scenes/GermanScene.unity
     guid: 7c6ffbec2f9234e928a6002bcfb4b29a
+  - enabled: 1
+    path: Assets/German/Scenes/EndCredits.unity
+    guid: e056a498388744d0db92ebc8dbbab1a6
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ad6e51f8366bf7a4e8eeb092c3369e69,
       type: 2}
