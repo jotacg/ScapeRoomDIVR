@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Inigo/Obstacles.unity
     guid: 3365374a128e344a3aaca42f38591138
   - enabled: 0
@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Aimar/Scenes/AimarPatio.unity
     guid: b1f144c4e2516df49888b522d2a4c2d0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Jorge/Scenes/DungeonJorge.unity
     guid: 0e9a7adb83969ef45a96a5f872a911d4
   - enabled: 1
