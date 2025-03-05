@@ -3,8 +3,8 @@ using System.Collections;
 
 public class LightDimmer : MonoBehaviour
 {
-    public float dimDuration = 2f;
-    public float targetIntensity = 0.1f;
+    public float dimDuration = 5f;
+    public float targetIntensity = 0.01f;
     private Light[] allLights;
     private float[] originalIntensities;
     private float originalAmbientIntensity;
